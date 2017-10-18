@@ -355,26 +355,44 @@ namespace SupportSaleAndWarehouseVer1._0
 
         private void btnDeleteDTWH_Click(object sender, EventArgs e)
         {
-           
+            FProductDetail fprodt = new FProductDetail();
+            var IDwh = Convert.ToInt32(dgrvWH.CurrentRow.Cells["ID"].Value.ToString());
+            var IDpro = Convert.ToInt32(dgrvDetailWH.CurrentRow.Cells["ID"].Value.ToString());
+            var IDprodt = (from wh in db.WareHouses.Where(x => x.ID == IDwh).ToList()
+                           from prodt in db.ProductDetails.Where(z => z.IDProduct == IDpro).ToList()
+                           select new
+                           {
+                               ID = prodt.ID
+                           }
+                ).ToList();
+            foreach (var item in IDprodt)
+            {
+                var a = Convert.ToInt32(item.ID.ToString());
+                fprodt.Delete(a);
+            }
+
+            Binding_dgrDetailWH();
         }
 
         private void btnAddPro_Click(object sender, EventArgs e)
         {
-            
+            FormImBill formImBill = new FormImBill();
+            formImBill.Show();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-           
+            FormExBill formImBill = new FormExBill();
+            formImBill.Show();
         }
         #endregion
 
         #region Tab Product
 
-        
-       
-      
-     
+
+
+
+
         public void dgrvProduct_MouseClick(object sender, MouseEventArgs e)
         {
             

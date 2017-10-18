@@ -52,3 +52,6 @@ C:\Users\NTB\Documents\GitHub\_QuanLyKho\SupportSaleAndWarehouse\SupportSaleAndW
 C:\Users\Duong Hung\Documents\GitHub\_QuanLyKho\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\bin\Debug\SupportSaleAndWarehouseVer1.0.exe.config
 C:\Users\Duong Hung\Documents\GitHub\_QuanLyKho\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\obj\Debug\SupportSaleAndWarehouseVer1.0.exe
 C:\Users\Duong Hung\Documents\GitHub\_QuanLyKho\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\obj\Debug\SupportSaleAndWarehouseVer1.0.pdb
+C:\Users\SlowRock\Documents\GitHub\_QuanLyKho\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\bin\Debug\SupportSaleAndWarehouseVer1.0.exe.config
+C:\Users\SlowRock\Documents\GitHub\_QuanLyKho\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\obj\Debug\SupportSaleAndWarehouseVer1.0.exe
+C:\Users\SlowRock\Documents\GitHub\_QuanLyKho\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\obj\Debug\SupportSaleAndWarehouseVer1.0.pdb
