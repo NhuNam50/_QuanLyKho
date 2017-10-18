@@ -393,66 +393,229 @@ namespace SupportSaleAndWarehouseVer1._0
 
 
 
+        public void Load_TabProduct()
+        {
+
+            BindingdgrvProduct();
+
+        }
+        public void BindingdgrvProduct()
+        {
+            btnAddProduct.Enabled = false;
+            //btnEditPro.Enabled = false;
+
+            dgrvProduct.Refresh();
+            dgrvProduct.DataSource = null;
+            txtIDPro.Enabled = false;
+            var IDCom = Convert.ToInt32(cbCom.SelectedValue.ToString());
+            List<Product> list = (from pr in db.Products.Where(x => x.IDCompany == IDCom) select pr).ToList();
+
+            dgrvProduct.AutoGenerateColumns = false;
+
+            dgrvProduct.ColumnCount = 5;
+            dgrvProduct.Columns[0].Name = "ID";
+            dgrvProduct.Columns[0].HeaderText = "ID";
+            dgrvProduct.Columns[0].DataPropertyName = "ID";
+
+            dgrvProduct.Columns[1].Name = "Product1";
+            dgrvProduct.Columns[1].HeaderText = "Tên s?n ph?m";
+            dgrvProduct.Columns[1].DataPropertyName = "Product1";
+
+
+            dgrvProduct.Columns[2].Name = "Company";
+            dgrvProduct.Columns[2].HeaderText = "Mã công ty";
+            dgrvProduct.Columns[2].DataPropertyName = "IDCompany";
+
+            dgrvProduct.Columns[3].Name = "Price";
+            dgrvProduct.Columns[3].HeaderText = "Giá bán";
+            dgrvProduct.Columns[3].DataPropertyName = "Price";
+
+            dgrvProduct.Columns[4].Name = "OrdinaryPrice";
+            dgrvProduct.Columns[4].HeaderText = "Giá g?c";
+            dgrvProduct.Columns[4].DataPropertyName = "OrdinaryPrice";
+
+            dgrvProduct.DataSource = list;
+            //txtIDPro.Text = dgrvProduct.CurrentRow.Cells["ID"].Value.ToString();
+            //txtPro.Text = dgrvProduct.CurrentRow.Cells["Product1"].Value.ToString();
+            //cbCompany.Text = dgrvProduct.CurrentRow.Cells["Company"].Value.ToString();
+            //txtOrdinaryPrice.Text = dgrvProduct.CurrentRow.Cells["OrdinaryPrice"].Value.ToString();
+            //txtPrice.Text = dgrvProduct.CurrentRow.Cells["Price"].Value.ToString();
+        }
+
+        public void Load_CbCom()
+        {
+            List<Company> list = (from com in db.Companies select com).ToList();
+            cbCom.DataSource = list;
+            cbCom.DisplayMember = "Company1";
+            cbCom.ValueMember = "ID";
+        }
+        public void Load_CbCompany()
+        {
+            List<Company> list = (from com in db.Companies select com).ToList();
+            cbCompany.DataSource = list;
+            cbCompany.DisplayMember = "Company1";
+            cbCompany.ValueMember = "ID";
+        }
         public void dgrvProduct_MouseClick(object sender, MouseEventArgs e)
         {
-            
+            txtIDPro.Text = dgrvProduct.CurrentRow.Cells["ID"].Value.ToString();
+            txtPro.Text = dgrvProduct.CurrentRow.Cells["Product1"].Value.ToString();
+            cbCompany.SelectedValue = cbCom.SelectedValue;
+            txtOrdinaryPrice.Text = dgrvProduct.CurrentRow.Cells["OrdinaryPrice"].Value.ToString();
+            txtPrice.Text = dgrvProduct.CurrentRow.Cells["Price"].Value.ToString();
         }
         private void cbCom_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            BindingdgrvProduct();
+            txtIDPro.Text = dgrvProduct.CurrentRow.Cells["ID"].Value.ToString();
+            txtPro.Text = dgrvProduct.CurrentRow.Cells["Product1"].Value.ToString();
+            cbCompany.SelectedValue = cbCom.SelectedValue;
+            txtOrdinaryPrice.Text = dgrvProduct.CurrentRow.Cells["OrdinaryPrice"].Value.ToString();
+            txtPrice.Text = dgrvProduct.CurrentRow.Cells["Price"].Value.ToString();
         }
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
-            
+            Product entity = new Product();
+            entity.ID = Convert.ToInt32(txtIDPro.Text.ToString());
+            entity.Product1 = txtPro.Text;
+            entity.IDCompany = Convert.ToInt32(cbCompany.SelectedValue.ToString());
+            entity.Price = Convert.ToInt32(txtPrice.Text.ToString());
+            entity.OrdinaryPrice = Convert.ToInt32(txtOrdinaryPrice.Text);
+            FProduct fProduct = new FProduct();
+            fProduct.Insert(entity);
+
+            BindingdgrvProduct();
         }
 
         private void btnRefreshPro_Click(object sender, EventArgs e)
         {
-            
+            txtIDPro.Text = "";
+            txtPro.Text = "";
+            txtOrdinaryPrice.Text = "";
+            txtPrice.Text = "";
         }
 
         private void btnEditPro_Click(object sender, EventArgs e)
         {
-            
+            Product entity = new Product();
+            entity.ID = Convert.ToInt32(txtIDPro.Text.ToString());
+            entity.Product1 = txtPro.Text;
+            entity.IDCompany = Convert.ToInt32(cbCompany.SelectedValue.ToString());
+            entity.Price = Convert.ToInt32(txtPrice.Text.ToString());
+            entity.OrdinaryPrice = Convert.ToInt32(txtOrdinaryPrice.Text);
+            FProduct fProduct = new FProduct();
+            fProduct.Update(entity);
+
+            btnAddProduct.Enabled = false;
+            //btnEditPro.Enabled = false;
+
+            dgrvProduct.Refresh();
+            dgrvProduct.DataSource = null;
+            txtIDPro.Enabled = false;
+            var IDCom = Convert.ToInt32(cbCom.SelectedValue.ToString());
+            List<Product> list = (from pr in db.Products.Where(x => x.IDCompany == IDCom) select pr).ToList();
+
+            dgrvProduct.AutoGenerateColumns = false;
+
+            dgrvProduct.ColumnCount = 5;
+            dgrvProduct.Columns[0].Name = "ID";
+            dgrvProduct.Columns[0].HeaderText = "ID";
+            dgrvProduct.Columns[0].DataPropertyName = "ID";
+
+            dgrvProduct.Columns[1].Name = "Product1";
+            dgrvProduct.Columns[1].HeaderText = "Tên s?n ph?m";
+            dgrvProduct.Columns[1].DataPropertyName = "Product1";
+
+
+            dgrvProduct.Columns[2].Name = "Company";
+            dgrvProduct.Columns[2].HeaderText = "Mã công ty";
+            dgrvProduct.Columns[2].DataPropertyName = "IDCompany";
+
+            dgrvProduct.Columns[3].Name = "Price";
+            dgrvProduct.Columns[3].HeaderText = "Giá bán";
+            dgrvProduct.Columns[3].DataPropertyName = "Price";
+
+            dgrvProduct.Columns[4].Name = "OrdinaryPrice";
+            dgrvProduct.Columns[4].HeaderText = "Giá g?c";
+            dgrvProduct.Columns[4].DataPropertyName = "OrdinaryPrice";
+
+            dgrvProduct.DataSource = list;
+
         }
 
         private void btnDeletePro_Click(object sender, EventArgs e)
         {
-          
+            FProduct fProduct = new FProduct();
+            var ID = Convert.ToInt32(dgrvProduct.CurrentRow.Cells["ID"].Value.ToString());
+            fProduct.Delete(ID);
+            BindingdgrvProduct();
         }
         private void txtOrdinaryPrice_KeyPress(object sender, KeyPressEventArgs e)
         {
-           
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
         private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
         private void txtPro_TextChanged(object sender, EventArgs e)
         {
-            
+            if (string.IsNullOrWhiteSpace(txtIDPro.Text) | string.IsNullOrWhiteSpace(txtOrdinaryPrice.Text) | string.IsNullOrWhiteSpace(txtPrice.Text) | string.IsNullOrWhiteSpace(txtPro.Text) | string.IsNullOrWhiteSpace(cbCompany.Text))
+            {
+                btnAddProduct.Enabled = false;
+                btnEditPro.Enabled = false;
+            }
+            else
+            {
+                btnAddProduct.Enabled = true;
+                btnEditPro.Enabled = true;
+            }
         }
 
         private void txtOrdinaryPrice_TextChanged(object sender, EventArgs e)
         {
-            
+            if (string.IsNullOrWhiteSpace(txtIDPro.Text) | string.IsNullOrWhiteSpace(txtOrdinaryPrice.Text) | string.IsNullOrWhiteSpace(txtPrice.Text) | string.IsNullOrWhiteSpace(txtPro.Text) | string.IsNullOrWhiteSpace(cbCompany.Text))
+            {
+                btnAddProduct.Enabled = false;
+                btnEditPro.Enabled = false;
+            }
+            else
+            {
+                btnAddProduct.Enabled = true;
+                btnEditPro.Enabled = true;
+            }
         }
 
         private void txtPrice_TextChanged(object sender, EventArgs e)
         {
-           
+            if (string.IsNullOrWhiteSpace(txtIDPro.Text) | string.IsNullOrWhiteSpace(txtOrdinaryPrice.Text) | string.IsNullOrWhiteSpace(txtPrice.Text) | string.IsNullOrWhiteSpace(txtPro.Text) | string.IsNullOrWhiteSpace(cbCompany.Text))
+            {
+                btnAddProduct.Enabled = false;
+                btnEditPro.Enabled = false;
+            }
+            else
+            {
+                btnAddProduct.Enabled = true;
+                btnEditPro.Enabled = true;
+            }
         }
 
 
         #endregion
         #region Tab Import Bill
-       
-    
 
-      
+
+
+
 
         private void dgrvIm_MouseClick(object sender, MouseEventArgs e)
         {
