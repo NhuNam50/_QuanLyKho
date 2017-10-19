@@ -15,14 +15,22 @@ namespace SupportSaleAndWarehouseVer1._0
 {
     public partial class FormMain : Form
     {
-        
+        WareHouseDbContext db = new WareHouseDbContext();
         public FormMain()
         {
             InitializeComponent();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+            Binding_CbWHImSearch();
+            Binding_CbWHExSearch();
+            BindingWarehouse();
+            Binding_dgrDetailWH();
+            Load_CbCom();
+            Load_CbCompany();
+            Load_TabProduct();
+            BindingdgrvIm();
+            BindingdgrvEx();
 
         }
         #region Tab WareHouse
@@ -47,15 +55,15 @@ namespace SupportSaleAndWarehouseVer1._0
 
 
             dgrvWH.Columns[2].Name = "Location";
-            dgrvWH.Columns[2].HeaderText = "Địa chỉ";
+            dgrvWH.Columns[2].HeaderText = "Ð?a ch?";
             dgrvWH.Columns[2].DataPropertyName = "Location";
 
             dgrvWH.Columns[3].Name = "Quantity";
-            dgrvWH.Columns[3].HeaderText = "Đã chứa";
+            dgrvWH.Columns[3].HeaderText = "Ðã ch?a";
             dgrvWH.Columns[3].DataPropertyName = "Quantity";
 
             dgrvWH.Columns[4].Name = "Capacity";
-            dgrvWH.Columns[4].HeaderText = "Sức chứa";
+            dgrvWH.Columns[4].HeaderText = "S?c ch?a";
             dgrvWH.Columns[4].DataPropertyName = "Capacity";
             dgrvWH.DataSource = list;
 
@@ -145,7 +153,7 @@ namespace SupportSaleAndWarehouseVer1._0
             dgrvDetailWH.Columns[0].DataPropertyName = "ID";
 
             dgrvDetailWH.Columns[1].Name = "Product1";
-            dgrvDetailWH.Columns[1].HeaderText = "Sản phẩm";
+            dgrvDetailWH.Columns[1].HeaderText = "S?n ph?m";
             dgrvDetailWH.Columns[1].DataPropertyName = "Product1";
 
             dgrvDetailWH.Columns[2].Name = "Company1";
@@ -153,7 +161,7 @@ namespace SupportSaleAndWarehouseVer1._0
             dgrvDetailWH.Columns[2].DataPropertyName = "Company1";
 
             dgrvDetailWH.Columns[3].Name = "Quantity";
-            dgrvDetailWH.Columns[3].HeaderText = "Số lượng";
+            dgrvDetailWH.Columns[3].HeaderText = "S? lu?ng";
             dgrvDetailWH.Columns[3].DataPropertyName = "Quantity";
 
             dgrvDetailWH.Columns[4].Name = "Price";
@@ -161,7 +169,7 @@ namespace SupportSaleAndWarehouseVer1._0
             dgrvDetailWH.Columns[4].DataPropertyName = "Price";
 
             dgrvDetailWH.Columns[5].Name = "OrdinaryPrice";
-            dgrvDetailWH.Columns[5].HeaderText = "Giá gốc";
+            dgrvDetailWH.Columns[5].HeaderText = "Giá g?c";
             dgrvDetailWH.Columns[5].DataPropertyName = "OrdinaryPrice";
 
             dgrvDetailWH.DataSource = list;
@@ -247,15 +255,15 @@ namespace SupportSaleAndWarehouseVer1._0
 
 
             dgrvWH.Columns[2].Name = "Location";
-            dgrvWH.Columns[2].HeaderText = "Địa chỉ";
+            dgrvWH.Columns[2].HeaderText = "Ð?a ch?";
             dgrvWH.Columns[2].DataPropertyName = "Location";
 
             dgrvWH.Columns[3].Name = "Quantity";
-            dgrvWH.Columns[3].HeaderText = "Đã chứa";
+            dgrvWH.Columns[3].HeaderText = "Ðã ch?a";
             dgrvWH.Columns[3].DataPropertyName = "Quantity";
 
             dgrvWH.Columns[4].Name = "Capacity";
-            dgrvWH.Columns[4].HeaderText = "Sức chứa";
+            dgrvWH.Columns[4].HeaderText = "S?c ch?a";
             dgrvWH.Columns[4].DataPropertyName = "Capacity";
             dgrvWH.DataSource = list;
 
@@ -388,10 +396,6 @@ namespace SupportSaleAndWarehouseVer1._0
         #endregion
 
         #region Tab Product
-
-
-
-
 
         public void Load_TabProduct()
         {
@@ -612,11 +616,6 @@ namespace SupportSaleAndWarehouseVer1._0
 
         #endregion
         #region Tab Import Bill
-
-
-
-
-
         public void Binding_CbWHImSearch()
         {
             List<WareHouse> lwh = (from wh in db.WareHouses select wh).ToList();
@@ -797,9 +796,6 @@ namespace SupportSaleAndWarehouseVer1._0
 
         #endregion
         #region Export Bill
-
-
-
         public void Binding_CbWHExSearch()
         {
             List<WareHouse> lwh = (from wh in db.WareHouses select wh).ToList();
@@ -985,11 +981,5 @@ namespace SupportSaleAndWarehouseVer1._0
             Binding_dgrvDTEx();
         }
         #endregion
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            huongdan h = new huongdan();
-            h.Show();
-        }
     }
 }
