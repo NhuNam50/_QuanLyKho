@@ -985,5 +985,11 @@ namespace SupportSaleAndWarehouseVer1._0
             Binding_dgrvDTEx();
         }
         #endregion
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            huongdan h = new huongdan();
+            h.Show();
+        }
     }
 }

@@ -137,6 +137,7 @@
             this.btnAddWH = new System.Windows.Forms.Button();
             this.btnRefreshWH = new System.Windows.Forms.Button();
             this.tab = new System.Windows.Forms.TabControl();
+            this.button2 = new System.Windows.Forms.Button();
             this.ExportBillPage.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox20.SuspendLayout();
@@ -984,6 +985,7 @@
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.button2);
             this.groupBox4.Controls.Add(this.btnDeleteDTWH);
             this.groupBox4.Controls.Add(this.btnSellPro);
             this.groupBox4.Controls.Add(this.btnAddPro);
@@ -1287,6 +1289,16 @@
             this.tab.TabIndex = 0;
             this.tab.Tag = "";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(200, 99);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(127, 48);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Hướng dẫn";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1445,6 +1457,7 @@
         private System.Windows.Forms.TextBox txtEx;
         private System.Windows.Forms.Button btnAddEx;
         private System.Windows.Forms.Button btnRefreshEx;
+        private System.Windows.Forms.Button button2;
     }
 }
 
