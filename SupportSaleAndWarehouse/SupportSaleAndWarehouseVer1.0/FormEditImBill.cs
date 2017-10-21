@@ -18,7 +18,7 @@ namespace SupportSaleAndWarehouseVer1._0
         WareHouseDbContext db = new WareHouseDbContext();
         List<ProductDetail> lprodt;
         List<Product> lpro;
-        public int IDImBill;   // bien id cua hoa don xuat
+        public int IDImBill;   
         public FormEditImBill(int ID, string Bill)
         {
             InitializeComponent();
@@ -55,7 +55,7 @@ namespace SupportSaleAndWarehouseVer1._0
         }
 
         
-        public void Binding_list()
+        public void Binding_list()    // lay ra danh sach cua san pham
         {
             var listolder = (from dt in db.ProductDetails.Where(x => x.IDImBill == IDImBill).ToList()
                              from pr in db.Products.Where(x => x.ID == dt.IDProduct).ToList()
@@ -80,7 +80,7 @@ namespace SupportSaleAndWarehouseVer1._0
                     entity.Quantity = item.Quantity;
                     entity.IDProduct = item.ID;
 
-                    // var ID = Convert.ToInt32(cbPro.SelectedValue.ToString());
+       
                     lprodt.Add(entity);
 
                     Product pro = db.Products.Where(x => x.ID == item.ID).SingleOrDefault();
