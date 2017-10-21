@@ -18,7 +18,7 @@ namespace SupportSaleAndWarehouseVer1._0
         WareHouseDbContext db = new WareHouseDbContext();
         List<ProductDetail> lprodt;
         List<Product> lpro;
-        public int IDImBill;
+        public int IDImBill;   // bien id cua hoa don xuat
         public FormEditImBill(int ID, string Bill)
         {
             InitializeComponent();
