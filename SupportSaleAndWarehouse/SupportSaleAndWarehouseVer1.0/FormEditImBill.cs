@@ -54,14 +54,14 @@ namespace SupportSaleAndWarehouseVer1._0
             cbPro.ValueMember = "ID";
         }
 
-
+        
         public void Binding_list()
         {
             var listolder = (from dt in db.ProductDetails.Where(x => x.IDImBill == IDImBill).ToList()
                              from pr in db.Products.Where(x => x.ID == dt.IDProduct).ToList()
                              from com in db.Companies.Where(x => x.ID == pr.IDCompany).ToList()
                              select new
-                             {
+                             {     
                                  IDProductDetail = dt.ID,
                                  ID = pr.ID,
                                  Product1 = pr.Product1,
@@ -152,12 +152,12 @@ namespace SupportSaleAndWarehouseVer1._0
                         }).ToList();
 
             dgrvPro.DataSource = list;
-            txtBillName.Text = db.ImportBills.Where(x => x.ID == IDImBill).SingleOrDefault().Bill.ToString();
+            txtBillName.Text =db.ImportBills.Where(x => x.ID == IDImBill).SingleOrDefault().Bill.ToString();
             dateTimePicker.Text = db.ImportBills.Where(x => x.ID == IDImBill).SingleOrDefault().Date.ToString();
             SumPriceAndQuantity();
         }
 
-
+       
 
         private void btnAddPro_Click_1(object sender, EventArgs e)
         {
@@ -169,7 +169,7 @@ namespace SupportSaleAndWarehouseVer1._0
                 entity.Quantity = Convert.ToInt32(numeric.Value.ToString());
                 entity.IDProduct = Convert.ToInt32(cbPro.SelectedValue.ToString());
                 entity.IDImBill = IDImBill;
-
+                 
 
                 var ID = Convert.ToInt32(cbPro.SelectedValue.ToString());
                 lprodt.Add(entity);
@@ -292,7 +292,7 @@ namespace SupportSaleAndWarehouseVer1._0
                 if (search == null)
                 {
                     FProductDetail dt = new FProductDetail();
-
+                   
                     dt.Insert(item);
                 }
                 else
@@ -312,25 +312,43 @@ namespace SupportSaleAndWarehouseVer1._0
 
         private void btnRefresh_Click_1(object sender, EventArgs e)
         {
-         
+
+            txtBillName.Text = "";
+            txtMoney.Text = "";
+            txtQuantity.Text = "";
+            dgrvPro.DataSource = null;
 
         }
 
         private void btnCancle_Click_1(object sender, EventArgs e)
         {
 
-       
+            this.Close();
 
         }
 
         private void txtBillName_TextChanged_1(object sender, EventArgs e)
         {
-         
+            if (txtBillName.Text != "")
+            {
+                btnEdit.Enabled = true;
+            }
+            else
+            {
+                btnEdit.Enabled = false;
+            }
         }
 
         private void numeric_ValueChanged_1(object sender, EventArgs e)
         {
-          
+            if (numeric.Value != 0)
+            {
+                btnAddPro.Enabled = true;
+            }
+            else
+            {
+                btnAddPro.Enabled = false;
+            }
         }
     }
 }
