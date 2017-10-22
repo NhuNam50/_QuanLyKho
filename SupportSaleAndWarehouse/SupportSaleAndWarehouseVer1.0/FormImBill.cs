@@ -22,7 +22,6 @@ namespace SupportSaleAndWarehouseVer1._0
         {
             InitializeComponent();
         }
-
         private void FormImBill_Load(object sender, EventArgs e)
         {
             Binding_CbWH();
@@ -72,7 +71,6 @@ namespace SupportSaleAndWarehouseVer1._0
                 }
             }
 
-
             var list = (from item1 in lpro
                         join item2 in lprodt
                         on item1.ID equals item2.IDProduct
@@ -103,9 +101,7 @@ namespace SupportSaleAndWarehouseVer1._0
 
             dgrvPro.DataSource = list;
 
-
             SumPriceAndQuantity();
-
         }
 
         private void SumPriceAndQuantity()
@@ -137,7 +133,6 @@ namespace SupportSaleAndWarehouseVer1._0
             dgrvPro.DataSource = null;
             dgrvPro.AutoGenerateColumns = false;
 
-
             dgrvPro.ColumnCount = 3;
 
             dgrvPro.Columns[0].Name = "Product1";
@@ -151,7 +146,6 @@ namespace SupportSaleAndWarehouseVer1._0
             dgrvPro.Columns[2].Name = "OrdinaryPrice";
             dgrvPro.Columns[2].HeaderText = "Giá gốc";
             dgrvPro.Columns[2].DataPropertyName = "OrdinaryPrice";
-
 
             dgrvPro.DataSource = lpro;
         }
@@ -213,7 +207,6 @@ namespace SupportSaleAndWarehouseVer1._0
             {
                 MessageBox.Show("Thêm phiếu nhập thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
         }
 
         private void txtBillName_TextChanged(object sender, EventArgs e)
