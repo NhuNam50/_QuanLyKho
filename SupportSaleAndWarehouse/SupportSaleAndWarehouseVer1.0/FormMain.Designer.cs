@@ -1291,13 +1291,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(200, 99);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(127, 48);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Hướng dẫn";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+           
             // 
             // FormMain
             // 
