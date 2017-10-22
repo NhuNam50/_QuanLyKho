@@ -46,3 +46,6 @@ D:\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\bin\Debug\EntityFramewo
 D:\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\bin\Debug\EntityFramework.SqlServer.dll
 D:\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\bin\Debug\EntityFramework.xml
 D:\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\NTB\Documents\GitHub\_QuanLyKho\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\bin\Debug\SupportSaleAndWarehouseVer1.0.exe.config
+C:\Users\NTB\Documents\GitHub\_QuanLyKho\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\obj\Debug\SupportSaleAndWarehouseVer1.0.exe
+C:\Users\NTB\Documents\GitHub\_QuanLyKho\SupportSaleAndWarehouse\SupportSaleAndWarehouseVer1.0\obj\Debug\SupportSaleAndWarehouseVer1.0.pdb
