@@ -14,13 +14,21 @@ namespace SupportSaleAndWarehouseVer1._0
 {
     public partial class FormExBill : Form
     {
-       
+       WareHouseDbContext db = new WareHouseDbContext();
+        List<ProductDetail> lprodt;
+        List<Product> lpro;
         public FormExBill()
         {
             InitializeComponent();
         }
         private void FormExBill_Load(object sender, EventArgs e)
         {
+            Binding_CbWH();
+            Load_CbPro();
+            lprodt = new List<ProductDetail>();
+            lpro = new List<Product>();
+            btnAdd.Enabled = false;
+            btnAddPro.Enabled = false;
         }
 
        
@@ -31,12 +39,18 @@ namespace SupportSaleAndWarehouseVer1._0
 
         private void btnAddPro_Click(object sender, EventArgs e)
         {
-            
+            List<WareHouse> lwh = (from wh in db.WareHouses select wh).ToList();
+            cbWH.DataSource = lwh;
+            cbWH.DisplayMember = "Warehouse";
+            cbWH.ValueMember = "ID";
         }
 
         private void btnDeletePro_Click(object sender, EventArgs e)
         {
-            
+            List<Product> list = (from pro in db.Products select pro).ToList();
+            cbPro.DataSource = list;
+            cbPro.DisplayMember = "Product1";
+            cbPro.ValueMember = "ID";
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
