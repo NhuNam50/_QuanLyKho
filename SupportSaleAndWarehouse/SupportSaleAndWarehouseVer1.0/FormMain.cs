@@ -617,78 +617,372 @@ namespace SupportSaleAndWarehouseVer1._0
 
 
 
+        public void Binding_CbWHImSearch()
+        {
+            List<WareHouse> lwh = (from wh in db.WareHouses select wh).ToList();
+            cbWHImSearch.DataSource = lwh;
+            cbWHImSearch.DisplayMember = "Warehouse";
+            cbWHImSearch.ValueMember = "ID";
+
+
+            cbWHImDt.DataSource = lwh;
+            cbWHImDt.DisplayMember = "Warehouse";
+            cbWHImDt.ValueMember = "ID";
+        }
+        public void BindingdgrvIm()
+        {
+            btnEditIm.Enabled = false;
+            dgrvIm.Refresh();
+            dgrvIm.DataSource = null;
+            txtIDIm.Enabled = false;
+            txtPriceIm.Enabled = false;
+            txtPriceIm.Enabled = false;
+            var IDWH = Convert.ToInt32(cbWHImSearch.SelectedValue.ToString());
+            List<ImportBill> list = (from im in db.ImportBills.Where(x => x.IDWareHouse == IDWH) select im).ToList();
+
+            dgrvIm.AutoGenerateColumns = false;
+
+            dgrvIm.ColumnCount = 6;
+            dgrvIm.Columns[0].Name = "ID";
+            dgrvIm.Columns[0].HeaderText = "ID";
+            dgrvIm.Columns[0].DataPropertyName = "ID";
+
+            dgrvIm.Columns[1].Name = "Bill";
+            dgrvIm.Columns[1].HeaderText = "Tên Phi?u";
+            dgrvIm.Columns[1].DataPropertyName = "Bill";
+
+
+            dgrvIm.Columns[2].Name = "IDWareHouse";
+            dgrvIm.Columns[2].HeaderText = "Mã kho";
+            dgrvIm.Columns[2].DataPropertyName = "IDWareHouse";
+
+            dgrvIm.Columns[3].Name = "Date";
+            dgrvIm.Columns[3].HeaderText = "Ngày nh?p";
+            dgrvIm.Columns[3].DataPropertyName = "Date";
+
+            dgrvIm.Columns[4].Name = "Quantity";
+            dgrvIm.Columns[4].HeaderText = "S? lu?ng";
+            dgrvIm.Columns[4].DataPropertyName = "Quantity";
+
+            dgrvIm.Columns[5].Name = "TotalPrice";
+            dgrvIm.Columns[5].HeaderText = "T?ng ti?n";
+            dgrvIm.Columns[5].DataPropertyName = "TotalPrice";
+
+            dgrvIm.DataSource = list;
+            //txtIDIm.Text = dgrvIm.CurrentRow.Cells["ID"].Value.ToString();
+            //txtPro.Text = dgrvIm.CurrentRow.Cells["Product1"].Value.ToString();
+            //cbCompany.Text = dgrvIm.CurrentRow.Cells["Company"].Value.ToString();
+            //txtOrdinaryPrice.Text = dgrvIm.CurrentRow.Cells["OrdinaryPrice"].Value.ToString();
+            //txtPrice.Text = dgrvIm.CurrentRow.Cells["Price"].Value.ToString();
+
+        }
+
+        public void Binding_dgrvDTIm()
+        {
+            dgrvDTIm.Refresh();
+            dgrvDTIm.DataSource = null;
+            txtIDPro.Enabled = false;
+            var IDBill = Convert.ToInt32(txtIDIm.Text.ToString());
+            var list = (from dt in db.ProductDetails.Where(x => x.IDImBill == IDBill).ToList()
+                        from pr in db.Products.Where(x => x.ID == dt.IDProduct).ToList()
+                        from com in db.Companies.Where(x => x.ID == pr.IDCompany).ToList()
+                        select new
+                        {
+                            ID = pr.ID,
+                            Product1 = pr.Product1,
+                            Company = com.Company1,
+                            Quantity = dt.Quantity,
+                            OrdinaryPrice = pr.OrdinaryPrice
+                        }
+                                  ).ToList();
+
+            dgrvDTIm.AutoGenerateColumns = false;
+
+            dgrvDTIm.ColumnCount = 5;
+            dgrvDTIm.Columns[0].Name = "ID";
+            dgrvDTIm.Columns[0].HeaderText = "ID";
+            dgrvDTIm.Columns[0].DataPropertyName = "ID";
+
+            dgrvDTIm.Columns[1].Name = "Product1";
+            dgrvDTIm.Columns[1].HeaderText = "Tên s?n ph?m";
+            dgrvDTIm.Columns[1].DataPropertyName = "Product1";
+
+
+            dgrvDTIm.Columns[2].Name = "Company";
+            dgrvDTIm.Columns[2].HeaderText = "Mã công ty";
+            dgrvDTIm.Columns[2].DataPropertyName = "Company";
+
+            dgrvDTIm.Columns[3].Name = "Quantity";
+            dgrvDTIm.Columns[3].HeaderText = "S? lu?ng";
+            dgrvDTIm.Columns[3].DataPropertyName = "Quantity";
+
+            dgrvDTIm.Columns[4].Name = "OrdinaryPrice";
+            dgrvDTIm.Columns[4].HeaderText = "Giá g?c";
+            dgrvDTIm.Columns[4].DataPropertyName = "OrdinaryPrice";
+
+            dgrvDTIm.DataSource = list;
+        }
+
         private void dgrvIm_MouseClick(object sender, MouseEventArgs e)
         {
+            txtIDIm.Text = dgrvIm.CurrentRow.Cells["ID"].Value.ToString();
+            txtIm.Text = dgrvIm.CurrentRow.Cells["Bill"].Value.ToString();
+            cbWHImDt.SelectedValue = cbWHImSearch.SelectedValue;
+            dtpIm.Text = dgrvIm.CurrentRow.Cells["Date"].Value.ToString();
+            txtQuantityIm.Text = dgrvIm.CurrentRow.Cells["Quantity"].Value.ToString();
+            txtPriceIm.Text = dgrvIm.CurrentRow.Cells["TotalPrice"].Value.ToString();
+            Binding_dgrvDTIm();
         }
 
         private void cbWHImSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            BindingdgrvIm();
+            txtIDIm.Text = dgrvIm.CurrentRow.Cells["ID"].Value.ToString();
+            txtIm.Text = dgrvIm.CurrentRow.Cells["Bill"].Value.ToString();
+            cbWHImDt.SelectedValue = cbWHImSearch.SelectedValue;
+            dtpIm.Text = dgrvIm.CurrentRow.Cells["Date"].Value.ToString();
+            txtQuantityIm.Text = dgrvIm.CurrentRow.Cells["Quantity"].Value.ToString();
+            txtPriceIm.Text = dgrvIm.CurrentRow.Cells["TotalPrice"].Value.ToString();
+            Binding_dgrvDTIm();
         }
         private void btnAddIm_Click(object sender, EventArgs e)
         {
-           
+            FormImBill formImBill = new FormImBill();
+            formImBill.Show();
         }
         private void btnRefreshIm_Click(object sender, EventArgs e)
         {
-           
+            txtIDIm.Text = "";
+            txtIm.Text = "";
+            cbWHImDt.SelectedValue = cbWHImSearch.SelectedValue;
+            dtpIm.Text = dgrvIm.CurrentRow.Cells["Date"].Value.ToString();
+            txtQuantityIm.Text = "";
+            txtPriceIm.Text = "";
         }
 
         private void btnEditIm_Click(object sender, EventArgs e)
         {
-           
+            int ID = Convert.ToInt32(txtIDIm.Text.ToString());
+            string Bill = txtIm.Text;
+            FormEditImBill formImBill = new FormEditImBill(ID, Bill);
+            formImBill.Show();
         }
 
         private void btnDeleteIm_Click(object sender, EventArgs e)
         {
+            FImportBill fImportBill = new FImportBill();
+
+            var IDIM1 = Convert.ToInt32(dgrvIm.CurrentRow.Cells["ID"].Value.ToString());
+            var list = db.ProductDetails.Where(x => x.IDImBill == IDIM1).ToList();
+            foreach (var item in list)
+            {
+                FProductDetail dt = new FProductDetail();
+                dt.Delete(item.ID);
+            }
+            fImportBill.Delete(IDIM1);
+            BindingdgrvIm();
         }
 
         private void txtIDIm_TextChanged(object sender, EventArgs e)
         {
-           
+            if (string.IsNullOrWhiteSpace(txtIDIm.Text))
+            {
+                btnEditIm.Enabled = false;
+            }
+            else
+            {
+                btnEditIm.Enabled = true;
+            }
         }
 
         #endregion
         #region Export Bill
-        
-       
+
+
+
+        public void Binding_CbWHExSearch()
+        {
+            List<WareHouse> lwh = (from wh in db.WareHouses select wh).ToList();
+            cbWHExSearch.DataSource = lwh;
+            cbWHExSearch.DisplayMember = "Warehouse";
+            cbWHExSearch.ValueMember = "ID";
+
+
+            cbWHExDt.DataSource = lwh;
+            cbWHExDt.DisplayMember = "Warehouse";
+            cbWHExDt.ValueMember = "ID";
+        }
+        public void BindingdgrvEx()
+        {
+            btnEditEx.Enabled = false;
+            dgrvEx.Refresh();
+            dgrvEx.DataSource = null;
+            txtIDEx.Enabled = false;
+            txtPriceEx.Enabled = false;
+            txtPriceEx.Enabled = false;
+            var IDWH = Convert.ToInt32(cbWHExSearch.SelectedValue.ToString());
+            List<ExportBill> list = (from ex in db.ExportBills.Where(x => x.IDWareHouse == IDWH) select ex).ToList();
+
+            dgrvEx.AutoGenerateColumns = false;
+
+            dgrvEx.ColumnCount = 6;
+            dgrvEx.Columns[0].Name = "ID";
+            dgrvEx.Columns[0].HeaderText = "ID";
+            dgrvEx.Columns[0].DataPropertyName = "ID";
+
+            dgrvEx.Columns[1].Name = "Bill";
+            dgrvEx.Columns[1].HeaderText = "Tên Phi?u";
+            dgrvEx.Columns[1].DataPropertyName = "Bill";
+
+
+            dgrvEx.Columns[2].Name = "IDWareHouse";
+            dgrvEx.Columns[2].HeaderText = "Mã kho";
+            dgrvEx.Columns[2].DataPropertyName = "IDWareHouse";
+
+            dgrvEx.Columns[3].Name = "Date";
+            dgrvEx.Columns[3].HeaderText = "Ngày nh?p";
+            dgrvEx.Columns[3].DataPropertyName = "Date";
+
+            dgrvEx.Columns[4].Name = "Quantity";
+            dgrvEx.Columns[4].HeaderText = "S? lu?ng";
+            dgrvEx.Columns[4].DataPropertyName = "Quantity";
+
+            dgrvEx.Columns[5].Name = "TotalPrice";
+            dgrvEx.Columns[5].HeaderText = "T?ng ti?n";
+            dgrvEx.Columns[5].DataPropertyName = "TotalPrice";
+
+            dgrvEx.DataSource = list;
+            //txtIDEx.Text = dgrvEx.CurrentRow.Cells["ID"].Value.ToString();
+            //txtPro.Text = dgrvEx.CurrentRow.Cells["Product1"].Value.ToString();
+            //cbCompany.Text = dgrvEx.CurrentRow.Cells["Company"].Value.ToString();
+            //txtOrdinaryPrice.Text = dgrvEx.CurrentRow.Cells["OrdinaryPrice"].Value.ToString();
+            //txtPrice.Text = dgrvEx.CurrentRow.Cells["Price"].Value.ToString();
+
+        }
+
+        public void Binding_dgrvDTEx()
+        {
+            dgrvDTEx.Refresh();
+            dgrvDTEx.DataSource = null;
+            txtIDPro.Enabled = false;
+            var IDBill = Convert.ToInt32(txtIDEx.Text.ToString());
+            var list = (from dt in db.ProductDetails.Where(x => x.IDExBill == IDBill).ToList()
+                        from pr in db.Products.Where(x => x.ID == dt.IDProduct).ToList()
+                        from com in db.Companies.Where(x => x.ID == pr.IDCompany).ToList()
+                        select new
+                        {
+                            ID = pr.ID,
+                            Product1 = pr.Product1,
+                            Company = com.Company1,
+                            Quantity = dt.Quantity,
+                            OrdinaryPrice = pr.OrdinaryPrice
+                        }
+                                  ).ToList();
+
+            dgrvDTEx.AutoGenerateColumns = false;
+
+            dgrvDTEx.ColumnCount = 5;
+            dgrvDTEx.Columns[0].Name = "ID";
+            dgrvDTEx.Columns[0].HeaderText = "ID";
+            dgrvDTEx.Columns[0].DataPropertyName = "ID";
+
+            dgrvDTEx.Columns[1].Name = "Product1";
+            dgrvDTEx.Columns[1].HeaderText = "Tên s?n ph?m";
+            dgrvDTEx.Columns[1].DataPropertyName = "Product1";
+
+
+            dgrvDTEx.Columns[2].Name = "Company";
+            dgrvDTEx.Columns[2].HeaderText = "Mã công ty";
+            dgrvDTEx.Columns[2].DataPropertyName = "Company";
+
+            dgrvDTEx.Columns[3].Name = "Quantity";
+            dgrvDTEx.Columns[3].HeaderText = "S? lu?ng";
+            dgrvDTEx.Columns[3].DataPropertyName = "Quantity";
+
+            dgrvDTEx.Columns[4].Name = "OrdinaryPrice";
+            dgrvDTEx.Columns[4].HeaderText = "Giá g?c";
+            dgrvDTEx.Columns[4].DataPropertyName = "OrdinaryPrice";
+
+            dgrvDTEx.DataSource = list;
+        }
+
+
 
         private void dgrvEx_MouseClick(object sender, MouseEventArgs e)
         {
 
-         
+            txtIDEx.Text = dgrvEx.CurrentRow.Cells["ID"].Value.ToString();
+            txtEx.Text = dgrvEx.CurrentRow.Cells["Bill"].Value.ToString();
+            cbWHExDt.SelectedValue = cbWHExSearch.SelectedValue;
+            dtpEx.Text = dgrvEx.CurrentRow.Cells["Date"].Value.ToString();
+            txtQuantityEx.Text = dgrvEx.CurrentRow.Cells["Quantity"].Value.ToString();
+            txtPriceEx.Text = dgrvEx.CurrentRow.Cells["TotalPrice"].Value.ToString();
+            Binding_dgrvDTEx();
 
 
         }
 
         private void btnAddEx_Click(object sender, EventArgs e)
         {
-          
+            FormExBill formExBill = new FormExBill();
+            formExBill.Show();
         }
 
         private void btnRefreshEx_Click(object sender, EventArgs e)
         {
-            
+            txtIDEx.Text = "";
+            txtEx.Text = "";
+            cbWHExDt.SelectedValue = cbWHExSearch.SelectedValue;
+            dtpEx.Text = dgrvEx.CurrentRow.Cells["Date"].Value.ToString();
+            txtQuantityEx.Text = "";
+            txtPriceEx.Text = "";
         }
 
         private void btnEditEx_Click(object sender, EventArgs e)
         {
-            
+            int ID = Convert.ToInt32(txtIDEx.Text.ToString());
+            string Bill = txtEx.Text;
+            FormEditExBill formExBill = new FormEditExBill(ID, Bill);
+            formExBill.Show();
         }
 
         private void btnDeleteEx_Click(object sender, EventArgs e)
         {
-           
+            FExportBill fExportBill = new FExportBill();
+
+            var IDEx1 = Convert.ToInt32(dgrvEx.CurrentRow.Cells["ID"].Value.ToString());
+            var list = db.ProductDetails.Where(x => x.IDExBill == IDEx1).ToList();
+            foreach (var item in list)
+            {
+                FProductDetail dt = new FProductDetail();
+                dt.Delete(item.ID);
+            }
+            fExportBill.Delete(IDEx1);
+            BindingdgrvEx();
         }
 
         private void txtIDEx_TextChanged(object sender, EventArgs e)
         {
-           
+            if (string.IsNullOrWhiteSpace(txtIDEx.Text))
+            {
+                btnEditEx.Enabled = false;
+            }
+            else
+            {
+                btnEditEx.Enabled = true;
+            }
         }
 
         private void cbWHExSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            BindingdgrvEx();
+            txtIDEx.Text = dgrvEx.CurrentRow.Cells["ID"].Value.ToString();
+            txtEx.Text = dgrvEx.CurrentRow.Cells["Bill"].Value.ToString();
+            cbWHExDt.SelectedValue = cbWHExSearch.SelectedValue;
+            dtpEx.Text = dgrvEx.CurrentRow.Cells["Date"].Value.ToString();
+            txtQuantityEx.Text = dgrvEx.CurrentRow.Cells["Quantity"].Value.ToString();
+            txtPriceEx.Text = dgrvEx.CurrentRow.Cells["TotalPrice"].Value.ToString();
+            Binding_dgrvDTEx();
         }
         #endregion
     }
